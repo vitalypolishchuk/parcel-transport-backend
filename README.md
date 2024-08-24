@@ -1,0 +1,1 @@
+add JWT_SECRET to .env

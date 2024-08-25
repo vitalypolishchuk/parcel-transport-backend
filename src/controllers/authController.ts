@@ -7,7 +7,7 @@ const users: {
   password: string
 }[] = []; // Replace with a proper database
 
-export const register = (req: Request, res: Response) => {
+export const register = (req: Request, res: Response) => { 
   try {
     const { email, password } = req.body;
 

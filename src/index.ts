@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 import cookieParser from 'cookie-parser';
 
 config();
@@ -17,6 +18,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser())
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

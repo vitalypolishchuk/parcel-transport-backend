@@ -34,7 +34,10 @@ export const createRequest = async (req: Request<{}, {}, CreateRequestBody>, res
         } = request;
     
         // Validate required fields
-        if (!request_type || !from_city || !to_city || !dispatch_date || !description) {
+        if (!request_type || !from_city || !to_city || !dispatch_date) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        };
+        if(request_type === 'order' && !description){
             return res.status(400).json({ error: 'Missing required fields' });
         }
     

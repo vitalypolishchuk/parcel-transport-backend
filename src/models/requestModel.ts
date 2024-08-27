@@ -12,7 +12,7 @@ export const getRequests = async (email: string): Promise<RequestCamel[]> => {
             id: request.id,
             requestType: request.request_type,
             fromCity: request.from_city,
-            toCity: request.toCity,
+            toCity: request.to_city,
             parcelType: request.parcelType,
             dispatchDate: request.dispatch_date,
             description: request.description,

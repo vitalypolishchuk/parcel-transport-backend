@@ -3,8 +3,8 @@ export interface Request {
     from_city: string;
     to_city: string;
     parcel_type?: 'Gadgets' | 'Drinks' | 'Clothes' | 'Medicines' | 'Other';
-    dispatch_date: Date;
-    description: string;
+    dispatch_date?: Date;
+    description?: string;
     create_at?: Date;
     updated_at?: string;
 }

@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import requestRoutes from './routes/requestRoutes';
 import cookieParser from 'cookie-parser';
 
 config();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(cookieParser())
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/request', requestRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -72,7 +72,7 @@ export const validate = async (req: Request, res: Response) => {
         }
 
         // Verify and decode the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as { email: string };
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your secret key') as { email: string };
         const email = decoded.email;
 
         // Find the user based on the email from the token

@@ -54,3 +54,8 @@ Ensure you have the following software installed:
     ```
     npx knex migrate:latest
     ```
+
+5. **Launch app:**
+    ```
+    npm run start:dev
+    ```

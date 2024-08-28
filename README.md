@@ -1,27 +1,56 @@
-add JWT_SECRET to .env
+# Parcel Transportation Backend
 
-Add documentation to set up and launch express
-Add documentation to install PostgreSQL
+This is the backend for the Parcel Transportation App, built with Express.js and PostgreSQL. It provides the API and database management for the application.
 
-Add corresponding databases:
+## Table of Contents
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Database Setup](#database-setup)
+- [Running the Server](#running-the-server)
+- [API Endpoints](#api-endpoints)
+
+## Getting Started
+
+Follow these instructions to set up and run the backend server locally.
+
+### Prerequisites
+
+Ensure you have the following software installed:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [pgAdmin](https://www.pgadmin.org/) (optional for managing PostgreSQL)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```
+    bash
+    git clone https://github.com/vitalypolishchuk/parcel-transport-backend
+    cd parcel-transport-backend
+    ```
 
 
-CREATE TABLE requests (
-    id SERIAL PRIMARY KEY,
-    user_email: TEXT NOT NULL,
-    request_type VARCHAR(10) NOT NULL CHECK (request_type IN ('order', 'delivery')),
-    from_city VARCHAR(100) NOT NULL, -- Adjust size as needed
-    to_city VARCHAR(100) NOT NULL,   -- Adjust size as needed
-    parcel_type VARCHAR(50),         -- Adjust size as needed
-    dispatch_date DATE NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+2. **Install dependencies:**
+   ```
+    npm install
+    ```
+
+3. **Create a .env file in the root directory of the project and add the following variables:**
+    ```
+    JWT_SECRET=my-key
+    POSTGRES_USER=postgres
+    POSTGRES_HOST=localhost
+    POSTGRES_DB=parcel-transport
+    POSTGRES_PASSWORD=password
+    ```
+
+4. **Run database migrations:**
+    ```
+    npx knex migrate:latest
+    ```

@@ -26,3 +26,34 @@ export const getRequests = async (email: string): Promise<RequestCamel[]> => {
         throw new Error(err.message || "An unexpected error occurred");
     }
 };
+
+export const deleteRequest = async (id: string): Promise<{ id: string }> => {
+    try {
+        const result = await pool.query(`
+            DELETE FROM requests
+            WHERE id = $1 
+            RETURNING id
+        `, [id]);
+
+        return { id: result.rows[0].id };
+    } catch (err: any) {
+        console.error(err);
+        throw new Error(err.message || "An unexpected error occurred");
+    }
+};
+
+export const editRequest = async (id: string, description: string): Promise<{ id: string, description: string }> => {
+    try {
+        const result = await pool.query(`
+            UPDATE requests
+            SET description = $2
+            WHERE id = $1
+            RETURNING id, description
+        `, [id, description]);
+
+        return { id: result.rows[0].id, description: result.rows[0].description };
+    } catch (err: any) {
+        console.error(err);
+        throw new Error(err.message || "An unexpected error occurred");
+    }
+};

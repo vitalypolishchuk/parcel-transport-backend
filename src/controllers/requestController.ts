@@ -128,3 +128,100 @@ export const getRequests = async (req: Request, res: Response) => {
         return res.status(500).json({ error: err instanceof Error ? err.message : 'Something went wrong' });
     }
 };
+
+export const deleteRequest = async (req: Request, res: Response) => {
+    try {
+        // Extract the token from the Authorization header
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ error: "Token is not provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+
+        // Verify the token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET || 'your secret key') as { email: string };
+        } catch (err: any) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: "Token expired" });
+            } else if (err.name === 'JsonWebTokenError') {
+                return res.status(401).json({ error: "Invalid token" });
+            } else {
+                return res.status(500).json({ error: "Token verification failed" });
+            }
+        }
+
+        const email = decoded.email;
+
+        // Check if the user exists
+        const existingUser = await userModel.getUserByEmail(email);
+        if (!existingUser) {
+            return res.status(404).json({ error: 'User not found' });
+        };
+
+        const { id } = req.body;
+        if(!id){
+            return res.status(400).json({ error: 'Missing id' });
+        }
+
+        // Get the user's requests
+        const requestResult = await requestModel.deleteRequest(id);
+
+        // Send the response with the requests
+        return res.status(200).json(requestResult);
+    } catch (err) {
+        console.error('Error getting requests:', err);
+        return res.status(500).json({ error: err instanceof Error ? err.message : 'Something went wrong' });
+    }
+};
+
+export const editRequest = async (req: Request, res: Response) => {
+    try {
+        // Extract the token from the Authorization header
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ error: "Token is not provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+
+        // Verify the token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET || 'your secret key') as { email: string };
+        } catch (err: any) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: "Token expired" });
+            } else if (err.name === 'JsonWebTokenError') {
+                return res.status(401).json({ error: "Invalid token" });
+            } else {
+                return res.status(500).json({ error: "Token verification failed" });
+            }
+        }
+
+        const email = decoded.email;
+
+        // Check if the user exists
+        const existingUser = await userModel.getUserByEmail(email);
+        if (!existingUser) {
+            return res.status(404).json({ error: 'User not found' });
+        };
+
+        const { id, description } = req.body;
+
+        if(!id ){
+            return res.status(400).json({ error: 'Missing id' });
+        }
+
+        // Get the user's requests
+        const requestResult = await requestModel.editRequest(id, description);
+
+        // Send the response with the requests
+        return res.status(200).json(requestResult);
+    } catch (err) {
+        console.error('Error editing request:', err);
+        return res.status(500).json({ error: err instanceof Error ? err.message : 'Something went wrong' });
+    }
+};

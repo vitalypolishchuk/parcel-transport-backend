@@ -48,6 +48,7 @@ Ensure you have the following software installed:
     POSTGRES_HOST=localhost
     POSTGRES_DB=parcel-transport
     POSTGRES_PASSWORD=password
+    FRONTEND_URL=url_for_frontend
     ```
 
 4. **Run database migrations:**

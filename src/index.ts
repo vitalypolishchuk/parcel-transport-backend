@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend URL
+    origin: process.env.FRONTEND_URL, // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent and received
 }));
 app.use(express.json());
